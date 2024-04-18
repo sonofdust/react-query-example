@@ -40,7 +40,7 @@ function App() {
     setIsOpen(true);
   };
 
-  if (postQuery.isLoading) return <CircularProgress />;
+  //  if (postQuery.isLoading) return <CircularProgress />;
   if (postQuery.isError)
     return (
       <Typography color="error">
@@ -117,7 +117,20 @@ function App() {
           </Stack>
         ))}
       </Box>
-
+      <Dialog
+        open={
+          newPostMutation.isLoading ||
+          editMutation.isLoading ||
+          postQuery.isLoading ||
+          deletePostMutation.isLoading
+        }
+      >
+        <DialogContent>
+          <Box sx={{display: "flex"}} alignContent="center" alignItems="center">
+            <CircularProgress />
+          </Box>
+        </DialogContent>
+      </Dialog>
       <Dialog
         open={isOpen}
         onClose={() => setIsOpen(false)}
@@ -160,7 +173,6 @@ function App() {
           </Button>
         </DialogActions>
       </Dialog>
-
       {/* <EditPostModal
         open={editModalOpen}
         id={id}

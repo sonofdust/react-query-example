@@ -2,7 +2,7 @@
 import {v4 as uuidv4} from "uuid";
 import {PostType} from "../types/types";
 
-const MIL_SEC = 50;
+const MIL_SEC = 250;
 //const [list, setList] =(state:{{}})=> useState<{id:string;title:string}>([])
 let POSTS: {id: string; title: string}[] = [
   {id: uuidv4(), title: "Post 1"},
