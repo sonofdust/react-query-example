@@ -33,7 +33,7 @@ export default {
 
 The purpose of thie demo is to demonstrate how to leverage ReactQuery to manage state.
 
-Please read the folling docs carefully before going over this demo: https://tanstack.com/query/latest/docs/framework/react/guides/prefetching
+**Please read the folling docs carefully before going over this demo:** https://tanstack.com/query/latest/docs/framework/react/guides/prefetching
 
 In a well-structured React application using TypeScript and React Query, organizing CRUD operations effectively is crucial for maintainability, scalability, and separation of concerns. Below, I'll detail how to best organize your CRUD operations, using the tasks example as a reference.
 
@@ -68,3 +68,13 @@ Let’s break down the CRUD operations for a tasks management application:
 └── taskTypes.ts1. API Functions (src/api/tasksApi.ts)
 
 Here you define all the API call functions. This is where the CRUD operations are directly handled.
+
+### Key consepts of React Query that are used in this DEMO
+
+1. Have all api's in a separage folder
+2. Leverage TanStac Query and understand the following concepts see the Hooks folder of this demo.
+   1. Queries: https://tanstack.com/query/latest/docs/framework/react/guides/prefetching
+   2. Mutations: https://tanstack.com/query/latest/docs/framework/react/guides/mutations
+   3. Query Invalidatioh: https://tanstack.com/query/latest/docs/framework/react/guides/query-invalidation
+3. After familerizing your self with the TasStac study the hooks folder.
+4. Understand the the state can be accessed from the queryClient.
