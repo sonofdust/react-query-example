@@ -1,5 +1,6 @@
 //import {useState} from "react";
 import {v4 as uuidv4} from "uuid";
+import {PostType} from "../types/types";
 
 const MIL_SEC = 50;
 //const [list, setList] =(state:{{}})=> useState<{id:string;title:string}>([])
@@ -7,10 +8,7 @@ let POSTS: {id: string; title: string}[] = [
   {id: uuidv4(), title: "Post 1"},
   {id: uuidv4(), title: "Post 2"},
 ];
-interface PostType {
-  id: string;
-  title: string;
-}
+
 const wait = (time: number) =>
   new Promise((resolve) => setTimeout(resolve, time));
 
