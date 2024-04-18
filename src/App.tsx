@@ -125,10 +125,10 @@ function App() {
           deletePostMutation.isLoading
         }
       >
-        <DialogContent>
-          <Box sx={{display: "flex"}} alignContent="center" alignItems="center">
-            <CircularProgress />
-          </Box>
+        <DialogContent
+          sx={{alignContent: "center", alignItems: "center", display: "flex"}}
+        >
+          <CircularProgress />
         </DialogContent>
       </Dialog>
       <Dialog
