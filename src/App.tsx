@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import {useState} from "react";
 import {
   Box,
   TextField,
@@ -7,6 +7,10 @@ import {
   IconButton,
   Stack,
   Button,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -16,26 +20,25 @@ import {
   useDeletePostMutation,
   usePostQuery,
   useNewPostMutation,
-  //  useEditPostMutation,
+  useEditPostMutation,
 } from "./hooks/useToDoList";
-import EditPostModal from "./EditPostModal"; // Import the modal component
 
 function App() {
   const {toggleTheme} = useThemeContext();
   const [newPostText, setNewPostText] = useState<string>("");
-  const [editModalOpen, setEditModalOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const [id, setEditId] = useState<string>("");
   const [title, setEditTitle] = useState<string>("");
 
   const postQuery = usePostQuery();
   const newPostMutation = useNewPostMutation();
-
+  const editMutation = useEditPostMutation();
   const deletePostMutation = useDeletePostMutation();
-
   const openEditModal = (id: string, title: string) => {
+    console.log(id, title);
     setEditId(id);
     setEditTitle(title);
-    setEditModalOpen(true);
+    setIsOpen(true);
   };
 
   if (postQuery.isLoading) return <CircularProgress />;
@@ -97,7 +100,10 @@ function App() {
           >
             <IconButton
               color="secondary"
-              onClick={() => openEditModal(post.id, post.title)}
+              onClick={(e) => {
+                e.preventDefault();
+                openEditModal(post.id, post.title);
+              }}
             >
               <EditIcon />
             </IconButton>
@@ -112,14 +118,47 @@ function App() {
           </Stack>
         ))}
       </Box>
-      <EditPostModal
+
+      <Dialog
+        open={isOpen}
+        onClose={() => setIsOpen(false)}
+        aria-labelledby="edit-dialog-title"
+      >
+        <DialogTitle id="edit-dialog-title">Edit Post</DialogTitle>
+        <DialogContent>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="post"
+            label="Edit Post"
+            type="text"
+            fullWidth
+            value={title}
+            onChange={(e) => setEditTitle(e.target.value)}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setIsOpen(false)} color="primary">
+            Cancel
+          </Button>
+          <Button
+            onClick={() => {
+              editMutation.mutate({id, title});
+              setIsOpen(false);
+            }}
+            color="primary"
+          >
+            Save
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      {/* <EditPostModal
         open={editModalOpen}
         id={id}
         title={title}
         onClose={() => setEditModalOpen(false)}
-        // onSave={handleEditSave}
-        // onTextChange={setEditPostText}
-      />
+      /> */}
     </Box>
   );
 }

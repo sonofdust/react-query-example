@@ -7,6 +7,10 @@ let POSTS: {id: string; title: string}[] = [
   {id: uuidv4(), title: "Post 1"},
   {id: uuidv4(), title: "Post 2"},
 ];
+interface PostType {
+  id: string;
+  title: string;
+}
 const wait = (time: number) =>
   new Promise((resolve) => setTimeout(resolve, time));
 
@@ -15,7 +19,9 @@ export const addPost = (title: string) =>
 
 export const editPost = (task: {id: string; title: string}) =>
   wait(MIL_SEC).then(() => {
-    POSTS = [task, ...POSTS.filter((e) => e.id !== task.id)];
+    POSTS = [task, ...POSTS.filter((e) => e.id !== task.id)].sort(
+      (a: PostType, b: PostType) => a.title.localeCompare(b.title)
+    );
   });
 
 export const deletePost = (id: string) =>
