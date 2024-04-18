@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {
   Dialog,
   DialogContent,
@@ -6,23 +6,36 @@ import {
   DialogTitle,
   TextField,
   Button,
+  //  textFieldClasses,
 } from "@mui/material";
+import {useEditPostMutation} from "./hooks/useToDoList";
 
 interface EditPostModalProps {
   open: boolean;
-  text: string;
+  id: string;
+  title: string;
   onClose: () => void;
-  onSave: (text: string) => void;
-  onTextChange: (text: string) => void;
+  //  onSave: (text: string) => void;
+  // onTextChange: (text: string) => void;
 }
 
 const EditPostModal: React.FC<EditPostModalProps> = ({
   open,
-  text,
+  id,
+  title,
   onClose,
-  onSave,
-  onTextChange,
 }) => {
+  const editMutation = useEditPostMutation();
+  const [newText, setNewText] = useState<string>(title);
+
+  //   useEffect(() => {
+  //     if (postQuery.data) {
+  //       const item = postQuery.data.find((item) => item.id === id);
+  //       if (item) {
+  //         setNewText(item.title);
+  //       }
+  //     }
+  //   }, []);
   return (
     <Dialog open={open} onClose={onClose} aria-labelledby="edit-dialog-title">
       <DialogTitle id="edit-dialog-title">Edit Post</DialogTitle>
@@ -34,15 +47,21 @@ const EditPostModal: React.FC<EditPostModalProps> = ({
           label="Edit Post"
           type="text"
           fullWidth
-          value={text}
-          onChange={(e) => onTextChange(e.target.value)}
+          value={newText}
+          onChange={(e) => setNewText(e.target.value)}
         />
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose} color="primary">
           Cancel
         </Button>
-        <Button onClick={() => onSave(text)} color="primary">
+        <Button
+          onClick={() => {
+            editMutation.mutate({id, title: newText});
+            onClose();
+          }}
+          color="primary"
+        >
           Save
         </Button>
       </DialogActions>
