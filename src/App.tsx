@@ -35,7 +35,6 @@ function App() {
   const editMutation = useEditPostMutation();
   const deletePostMutation = useDeletePostMutation();
   const openEditModal = (id: string, title: string) => {
-    console.log(id, title);
     setEditId(id);
     setEditTitle(title);
     setIsOpen(true);
