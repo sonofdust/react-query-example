@@ -135,6 +135,13 @@ function App() {
             fullWidth
             value={title}
             onChange={(e) => setEditTitle(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault();
+                editMutation.mutate({id, title});
+                setIsOpen(false);
+              }
+            }}
           />
         </DialogContent>
         <DialogActions>
