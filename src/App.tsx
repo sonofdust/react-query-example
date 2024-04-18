@@ -135,7 +135,7 @@ function App() {
             value={title}
             onChange={(e) => setEditTitle(e.target.value)}
             onKeyDown={(e) => {
-              if (e.key === "Enter") {
+              if (e.key === "Enter" && title.trim() !== "") {
                 e.preventDefault();
                 editMutation.mutate({id, title});
                 setIsOpen(false);
@@ -149,8 +149,10 @@ function App() {
           </Button>
           <Button
             onClick={() => {
-              editMutation.mutate({id, title});
-              setIsOpen(false);
+              if (title.trim() !== "") {
+                editMutation.mutate({id, title});
+                setIsOpen(false);
+              }
             }}
             color="primary"
           >

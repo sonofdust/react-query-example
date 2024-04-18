@@ -35,6 +35,8 @@ The purpose of thie demo is to demonstrate how to leverage ReactQuery to manage 
 
 **Please read the folling docs carefully before going over this demo:** https://tanstack.com/query/latest/docs/framework/react/guides/prefetching
 
+**Also here is a good video tutorial that I used to get started:** https://www.youtube.com/watch?v=r8Dg0KVnfMA
+
 In a well-structured React application using TypeScript and React Query, organizing CRUD operations effectively is crucial for maintainability, scalability, and separation of concerns. Below, I'll detail how to best organize your CRUD operations, using the tasks example as a reference.
 
 ### Best Practices for Organizing CRUD Operations
